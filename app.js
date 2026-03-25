@@ -1,3 +1,19 @@
+function getOneSignalId(callback) {
+    if (!window.OneSignalDeferred) {
+        callback(null);
+        return;
+    }
+
+    OneSignalDeferred.push(function(OneSignal) {
+        try {
+            const id = OneSignal.User?.PushSubscription?.id || null;
+            callback(id);
+        } catch (e) {
+            callback(null);
+        }
+    });
+}
+
 // DataLayer para Google Tag Manager
 window.dataLayer = window.dataLayer || [];
 
@@ -16,9 +32,11 @@ function pushToDataLayer(event, data) {
     if (event === 'payment_initiated') {
         OneSignal.User.addTag('status_comercial', 'payment_initiated');
     }
-    analytics.track(event,
-        {onesignal_device:
-        OneSignal.User.PushSubscription.id});
+    getOneSignalId((id) => {
+    analytics.track(event, {
+        onesignal_device: id
+    });
+});
 }
 
 // Configuración y constantes
