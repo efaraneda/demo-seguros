@@ -14,6 +14,11 @@ function pushToDataLayer(event, data) {
         // Add a single tag
     OneSignal.User.addTag('status_comercial', 'renewal_interest');
     }
+    if (event ==='payment_initiated'){
+        
+        // Add a single tag
+    OneSignal.User.addTag('status_comercial', 'payment_initiated');
+    }
 }
 
 // Configuración y constantes
