@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AseguraMX - Tu Seguro en 2 Pasos</title>
+    <link rel="stylesheet" href="style.css">
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "1fde7c5d-c3f4-403e-b889-9743accc9303",
+    });
+  });
+</script>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 5L5 12V20C5 28.5 11 35.5 20 38C29 35.5 35 28.5 35 20V12L20 5Z" fill="#0066FF" stroke="#0066FF" stroke-width="2"/>
+                    <path d="M20 15L15 18V23C15 26 17 28.5 20 29.5C23 28.5 25 26 25 23V18L20 15Z" fill="white"/>
+                </svg>
+                <span>AseguraMX</span>
+            </div>
+            <nav class="nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#cobertura">Cobertura</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section (Initial) -->
+            <section id="hero-section" class="hero-section">
+                <h1 class="hero-title">Protege lo que más importa</h1>
+                <p class="hero-subtitle">Cotiza o renueva tu seguro en solo 2 pasos</p>
+                <button class="cta-button" onclick="app.startProcess()">
+                    Comenzar ahora
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                
+                <div class="benefits">
+                    <div class="benefit">
+                        <div class="benefit-icon">⚡</div>
+                        <span>Proceso rápido</span>
+                    </div>
+                    <div class="benefit">
+                        <div class="benefit-icon">💰</div>
+                        <span>Mejores precios</span>
+                    </div>
+                    <div class="benefit">
+                        <div class="benefit-icon">🛡️</div>
+                        <span>100% seguro</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Form Container -->
+            <div id="form-container" class="form-container" style="display: none;">
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Identificación</div>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Confirmación</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Identification -->
+                <div id="step-1" class="form-step active">
+                    <div class="step-header">
+                        <h2 id="step-1-title">Ingresa tu identificación</h2>
+                        <p id="step-1-subtitle">Necesitamos verificar tu información</p>
+                    </div>
+
+                    <form id="identification-form" class="form">
+                        <div class="form-group">
+                            <label for="curp-rfc">CURP o RFC</label>
+                            <input 
+                                type="text" 
+                                id="curp-rfc" 
+                                name="curp-rfc" 
+                                placeholder="Ej: GOMC850101HDFRRL01"
+                                maxlength="18"
+                                required
+                            >
+                            <div class="input-helper">Ingresa tu CURP (18 caracteres) o RFC</div>
+                        </div>
+
+                        <div id="discount-code-group" class="form-group" style="display: none;">
+                            <label for="discount-code">Código de descuento (opcional)</label>
+                            <input 
+                                type="text" 
+                                id="discount-code" 
+                                name="discount-code" 
+                                placeholder="Ej: RENUEVA2024"
+                            >
+                            <div class="input-helper">Si tienes un código, ingrésalo aquí</div>
+                        </div>
+
+                        <div id="discount-alert" class="alert alert-success" style="display: none;">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="2"/>
+                                <path d="M6 10L9 13L14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span id="discount-message"></span>
+                        </div>
+
+                        <button type="submit" class="submit-button">
+                            Continuar
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Confirmation and Payment -->
+                <div id="step-2" class="form-step">
+                    <div class="step-header">
+                        <h2 id="step-2-title">Confirma tu póliza</h2>
+                        <p id="step-2-subtitle">Revisa los detalles antes de proceder</p>
+                    </div>
+
+                    <div class="policy-summary">
+                        <div class="summary-header">
+                            <h3>Resumen de tu seguro</h3>
+                        </div>
+                        
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <span class="item-label">Cliente</span>
+                                <span class="item-value" id="client-curp"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="item-label">Tipo de póliza</span>
+                                <span class="item-value" id="policy-type"></span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="item-label">Cobertura</span>
+                                <span class="item-value">Amplia Plus</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="item-label">Prima base</span>
+                                <span class="item-value" id="base-premium"></span>
+                            </div>
+                            <div class="summary-item" id="discount-row" style="display: none;">
+                                <span class="item-label discount-label">Descuento aplicado</span>
+                                <span class="item-value discount-value" id="discount-amount"></span>
+                            </div>
+                            <div class="summary-item total">
+                                <span class="item-label">Total a pagar</span>
+                                <span class="item-value" id="total-amount"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="secondary-button" onclick="app.goBack()">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M13 16L7 10L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Volver
+                        </button>
+                        <button class="submit-button" onclick="app.processPayment()">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Proceder al pago
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Screen -->
+            <div id="loading-screen" class="loading-screen" style="display: none;">
+                <div class="loading-content">
+                    <div class="loader"></div>
+                    <h3>Procesando tu pago...</h3>
+                    <p>Por favor espera un momento</p>
+                </div>
+            </div>
+
+            <!-- Success Screen -->
+            <div id="success-screen" class="success-screen" style="display: none;">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                            <circle cx="40" cy="40" r="38" fill="#10B981" fill-opacity="0.1" stroke="#10B981" stroke-width="4"/>
+                            <path d="M25 40L35 50L55 30" stroke="#10B981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2>¡Pago exitoso!</h2>
+                    <p id="success-message">Tu póliza ha sido procesada correctamente</p>
+                    <div class="success-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Número de confirmación:</span>
+                            <span class="detail-value" id="confirmation-number"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Monto pagado:</span>
+                            <span class="detail-value" id="paid-amount"></span>
+                        </div>
+                    </div>
+                    <button class="submit-button" onclick="app.reset()">
+                        Realizar otra cotización
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AseguraMX. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
