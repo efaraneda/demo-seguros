@@ -25,12 +25,9 @@ function pushToDataLayer(event, data) {
     });
     console.log('DataLayer Event:', event, data);
 
-    if (event === 'renewal_interest') {
-        OneSignal.User.addTag('status_comercial', 'renewal_interest');
-    }
 
-    if (event === 'payment_initiated') {
-        OneSignal.User.addTag('status_comercial', 'payment_initiated');
+    if (event === 'payment_ready' ) {
+        OneSignal.User.addTag('status_comercial', 'renewal_interest');
     }
     getOneSignalId((id) => {
     analytics.track(event, {
